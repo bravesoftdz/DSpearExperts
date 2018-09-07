@@ -1,0 +1,54 @@
+package DSpearExperts.Ide;
+
+{$R *.res}
+{$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO OFF}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION OFF}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES ON}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DEFINE DEBUG}
+{$ENDIF IMPLICITBUILDING}
+{$IMPLICITBUILD ON}
+
+requires
+  designide,
+  rtl,
+  vclimg,
+  vcl;
+
+contains
+  DSpear.Ide.Main in 'DSpear.Ide.Main.pas',
+  DSpear.ImageGalery in '..\Utils\DSpear.ImageGalery.pas',
+  ImageGalery.Interf in '..\Utils\ImageGalery.Interf.pas',
+  DSpear.StartUp in 'DSpear.StartUp.pas',
+  Ide.Main.Interf in 'Ide.Main.Interf.pas',
+  Ide.Shortcuts.Interf in 'Ide.Shortcuts.Interf.pas',
+  Ide.Shortcuts in 'Ide.Shortcuts.pas',
+  ViewModel.RegisterToolItem in 'RegisterTool\ViewModel\ViewModel.RegisterToolItem.pas',
+  ViewModel.RegisterTool in 'RegisterTool\ViewModel\ViewModel.RegisterTool.pas',
+  RegisterTool.Viewer.Interf in 'RegisterTool\Viewer\RegisterTool.Viewer.Interf.pas',
+  RegisterTool.Viewer in 'RegisterTool\Viewer\RegisterTool.Viewer.pas' {frmRegisterTool},
+  RegisterToolItem.Viewer.Interf in 'RegisterTool\Viewer\RegisterToolItem.Viewer.Interf.pas',
+  RegisterToolItem.Viewer in 'RegisterTool\Viewer\RegisterToolItem.Viewer.pas' {fraRegisterToolItem: TFrame},
+  Feature.Domain in 'Domain\Feature.Domain.pas',
+  DSpear.Settings in 'DSpear.Settings.pas';
+
+end.
+
