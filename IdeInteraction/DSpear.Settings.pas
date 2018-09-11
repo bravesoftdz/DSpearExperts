@@ -9,7 +9,13 @@ uses
   System.SysUtils;
 
 type
-  TSettings = class
+  ISettings = interface
+    ['{A4DDD6F2-940D-4F1F-B1DC-76815DD121FB}']
+    function GetShortcutForTool(ToolName: string; out ShortcutInformation: TShortcutInformation): Boolean;
+    procedure SetShortcutForTool(ToolInformation: TToolInformation);
+  end;
+
+  TSettings = class(TInterfacedObject, ISettings)
   private
     FSettingsFilePath: string;
     function GetSettingsFile: TIniFile;

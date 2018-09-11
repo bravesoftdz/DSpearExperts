@@ -17,8 +17,6 @@ uses
   Vcl.Menus;
 
 type
-  TActionShortcut = procedure of object;
-
   TToolShortcut = class(TNotifierObject, IOTAKeyboardBinding)
   strict private
     FShortcutIndex: Integer;
@@ -126,8 +124,12 @@ begin
   RemoveToolShortcut(ToolInformation.Title);
 
   ToolShortcut := TToolShortcut.Create(ToolInformation, Action);
-  ToolShortcutBinding := ToolShortcut as IOTAKeyboardBinding;
+  FShotcutList.AddOrSetValue(ToolInformation.Title, ToolShortcut);
 
+  if not ToolInformation.Enabled then
+    Exit;
+
+  ToolShortcutBinding := ToolShortcut as IOTAKeyboardBinding;
   with (BorlandIDEServices as IOTAKeyboardServices) do
     ToolShortcut.ShortcutIndex := AddKeyboardBinding(ToolShortcutBinding);
 end;

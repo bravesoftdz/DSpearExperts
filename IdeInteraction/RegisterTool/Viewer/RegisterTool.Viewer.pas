@@ -45,7 +45,7 @@ implementation
 
 procedure TfrmRegisterTool.AddTool(ToolItem: IRegisterToolItemViewer);
 begin
-  ToolItem.SetParent(Self);
+  ToolItem.SetParentControl(Self);
   FListOfTools.Add(ToolItem);
 end;
 

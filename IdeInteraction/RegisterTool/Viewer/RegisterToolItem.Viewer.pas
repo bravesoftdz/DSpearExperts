@@ -33,7 +33,7 @@ type
     procedure meCharClick(Sender: TObject);
   public
     constructor Create; reintroduce;
-    procedure SetParent(Control: TWinControl);
+    procedure SetParentControl(Control: TWinControl);
     procedure SetItemInformation(ToolTitle: TToolInformation);
     function GetItemInformation: TToolInformation;
   end;
@@ -72,7 +72,7 @@ begin
   meChar.Text := ToolTitle.ShortCut.CharKey;
 end;
 
-procedure TfraRegisterToolItem.SetParent(Control: TWinControl);
+procedure TfraRegisterToolItem.SetParentControl(Control: TWinControl);
 begin
   Self.Parent := Control;
 end;
