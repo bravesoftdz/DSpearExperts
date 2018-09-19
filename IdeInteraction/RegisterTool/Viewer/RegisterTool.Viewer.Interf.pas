@@ -15,7 +15,7 @@ type
   IRegisterToolViewer = interface
     ['{55905AD8-0F33-4AD1-A5E9-1B55A59B5BA4}']
     procedure AddTool(ToolItem: IRegisterToolItemViewer);
-    procedure Show(OnFinishConfiguration: TOnFinishConfiguration);
+    procedure ShowItems(OnFinishConfiguration: TOnFinishConfiguration);
   end;
 
 implementation

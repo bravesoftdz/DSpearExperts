@@ -14,7 +14,6 @@ object frmRegisterTool: TfrmRegisterTool
   FormStyle = fsStayOnTop
   OldCreateOrder = False
   Position = poOwnerFormCenter
-  Visible = True
   OnClose = FormClose
   PixelsPerInch = 96
   TextHeight = 13

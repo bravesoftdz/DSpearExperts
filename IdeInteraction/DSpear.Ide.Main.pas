@@ -94,7 +94,7 @@ end;
 
 procedure TDSpearIdeMain.OpenConfiguration(Sender: TObject);
 begin
-  FRegisterToolViewer.Show(OnFinishConfiguration);
+  FRegisterToolViewer.ShowItems(OnFinishConfiguration);
 end;
 
 end.

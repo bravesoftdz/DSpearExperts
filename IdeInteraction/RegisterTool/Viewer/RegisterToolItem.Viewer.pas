@@ -32,7 +32,6 @@ type
     meChar: TMaskEdit;
     procedure meCharClick(Sender: TObject);
   public
-    constructor Create; reintroduce;
     procedure SetParentControl(Control: TWinControl);
     procedure SetItemInformation(ToolTitle: TToolInformation);
     function GetItemInformation: TToolInformation;
@@ -41,11 +40,6 @@ type
 implementation
 
 {$R *.dfm}
-
-constructor TfraRegisterToolItem.Create;
-begin
-  inherited Create(nil);
-end;
 
 function TfraRegisterToolItem.GetItemInformation: TToolInformation;
 begin

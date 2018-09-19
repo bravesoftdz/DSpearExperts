@@ -31,10 +31,9 @@ type
     FListOfTools: IList<IRegisterToolItemViewer>;
   public
     constructor Create(AOwner: TComponent); override;
-    destructor Destroy; override;
 
     procedure AddTool(ToolItem: IRegisterToolItemViewer);
-    procedure Show(OnFinishConfiguration: TOnFinishConfiguration);
+    procedure ShowItems(OnFinishConfiguration: TOnFinishConfiguration);
   end;
 
 implementation
@@ -55,17 +54,12 @@ begin
   FListOfTools := TCollections.CreateList<IRegisterToolItemViewer>;
 end;
 
-destructor TfrmRegisterTool.Destroy;
-begin
-
-  inherited;
-end;
-
 procedure TfrmRegisterTool.FormClose(Sender: TObject; var Action: TCloseAction);
 var
   Tool: IRegisterToolItemViewer;
   ListOfConfigurations: IList<TToolInformation>;
 begin
+  Action := caHide;
   ListOfConfigurations := TCollections.CreateList<TToolInformation>;
 
   for Tool in FListOfTools do
@@ -75,7 +69,7 @@ begin
     FOnFinishConfiguration(ListOfConfigurations);
 end;
 
-procedure TfrmRegisterTool.Show(OnFinishConfiguration: TOnFinishConfiguration);
+procedure TfrmRegisterTool.ShowItems(OnFinishConfiguration: TOnFinishConfiguration);
 begin
   FOnFinishConfiguration := OnFinishConfiguration;
   inherited Show;
