@@ -15,27 +15,26 @@ uses
 
   ImageGalery.Interf,
 
+  RegisterTool.Viewer,
+  RegisterTool.Viewer.Interf,
+
+  RegisterToolItem.Viewer,
+  RegisterToolItem.Viewer.Interf,
+
   Spring.Container;
+
+  procedure Register;
 
 implementation
 
 var
   IdeMain: IIdeMain;
-
-procedure RegisterClasses;
-begin
-  GlobalContainer.RegisterType<TDSpearImageGalery>.Implements<IImageGalery>;
-  GlobalContainer.RegisterType<TDSpearIdeMain>.Implements<IIdeMain>;
-  GlobalContainer.RegisterType<TSettings>.Implements<ISettings>;
-  GlobalContainer.RegisterType<TSettings>.Implements<ISettings>;
-  GlobalContainer.RegisterType<TIdeShortcuts>.Implements<IIdeShortCuts>;
-
-  GlobalContainer.Build;
-end;
+  DSpearContainer: TContainer;
 
 procedure StartInteractionWithIde;
 begin
-  IdeMain := GlobalContainer.Resolve<IIdeMain>;
+  IdeMain := DSpearContainer.Resolve<IIdeMain>;
+  IdeMain.CreateMainMenu;
 end;
 
 procedure RegisterInitialShortcuts;
@@ -43,16 +42,29 @@ begin
 
 end;
 
-procedure StartUpDSpear;
+procedure RegisterClasses;
+begin
+  DSpearContainer := TContainer.Create;
+  DSpearContainer.RegisterType<TDSpearImageGalery>.Implements<IImageGalery>;
+  DSpearContainer.RegisterType<TSettings>.Implements<ISettings>;
+  DSpearContainer.RegisterType<TIdeShortcuts>.Implements<IIdeShortCuts>;
+  DSpearContainer.RegisterType<TDSpearIdeMain>.Implements<IIdeMain>;
+  DSpearContainer.RegisterType<TfraRegisterToolItem>.Implements<IRegisterToolItemViewer>;
+  DSpearContainer.RegisterType<TfrmRegisterTool>.Implements<IRegisterToolViewer>;
+  DSpearContainer.Build;
+end;
+
+procedure Register;
 begin
   RegisterClasses;
+  StartInteractionWithIde;
   RegisterInitialShortcuts;
 end;
 
 initialization
-  StartUpDSpear;
 
 finalization
+  IdeMain := nil;
 
 end.
 
