@@ -59,7 +59,7 @@ var
   Tool: IRegisterToolItemViewer;
   ListOfConfigurations: IList<TToolInformation>;
 begin
-  Action := caHide;
+  Action := caFree;
   ListOfConfigurations := TCollections.CreateList<TToolInformation>;
 
   for Tool in FListOfTools do
@@ -72,7 +72,7 @@ end;
 procedure TfrmRegisterTool.ShowItems(OnFinishConfiguration: TOnFinishConfiguration);
 begin
   FOnFinishConfiguration := OnFinishConfiguration;
-  inherited Show;
+  inherited ShowModal;
 end;
 
 end.

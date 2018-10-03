@@ -12,6 +12,7 @@ uses
 
   ImageGalery.Interf,
 
+  RegisterTool.Viewer,
   RegisterTool.Viewer.Interf,
 
   Spring.Collections,
@@ -24,14 +25,13 @@ type
   TDSpearIdeMain = class(TInterfacedObject, IIdeMain)
   private
     FMenusCreated: Boolean;
-    FRegisterToolViewer: IRegisterToolViewer;
     FIdeShortCuts: IIdeShortCuts;
+    FImageGalery: IImageGalery;
 
     procedure OpenConfiguration(Sender: TObject);
     procedure OnFinishConfiguration(ListOfConfigurations: IList<TToolInformation>);
   public
-    constructor Create(ImageGalery: IImageGalery; RegisterToolViewer: IRegisterToolViewer;
-      IdeShortCuts: IIdeShortCuts);
+    constructor Create(ImageGalery: IImageGalery; IdeShortCuts: IIdeShortCuts);
 
     procedure CreateMainMenu;
   end;
@@ -40,11 +40,10 @@ implementation
 
 { TDSpearIdeMain }
 
-constructor TDSpearIdeMain.Create(ImageGalery: IImageGalery; RegisterToolViewer: IRegisterToolViewer;
-  IdeShortCuts: IIdeShortCuts);
+constructor TDSpearIdeMain.Create(ImageGalery: IImageGalery; IdeShortCuts: IIdeShortCuts);
 begin
-  FRegisterToolViewer := RegisterToolViewer;
   FIdeShortCuts := IdeShortCuts;
+  FImageGalery := ImageGalery;
 end;
 
 procedure TDSpearIdeMain.CreateMainMenu;
@@ -93,8 +92,11 @@ begin
 end;
 
 procedure TDSpearIdeMain.OpenConfiguration(Sender: TObject);
+var
+  RegisterToolViewer: TfrmRegisterTool;
 begin
-  FRegisterToolViewer.ShowItems(OnFinishConfiguration);
+  RegisterToolViewer := TfrmRegisterTool.Create(nil);
+  RegisterToolViewer.ShowItems(OnFinishConfiguration);
 end;
 
 end.

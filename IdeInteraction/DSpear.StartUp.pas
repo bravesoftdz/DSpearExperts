@@ -49,20 +49,20 @@ begin
   DSpearContainer.RegisterType<TSettings>.Implements<ISettings>;
   DSpearContainer.RegisterType<TIdeShortcuts>.Implements<IIdeShortCuts>;
   DSpearContainer.RegisterType<TDSpearIdeMain>.Implements<IIdeMain>;
-
   DSpearContainer.RegisterType<IRegisterToolItemViewer>.DelegateTo(
     function: IRegisterToolItemViewer
     begin
       Result := TfraRegisterToolItem.Create(nil);
     end);
+  DSpearContainer.RegisterType<TfrmRegisterTool, TfrmRegisterTool>;
 
   {TODO: For some reason, if I install the package and uninstall, if I register this form, in few seconds
    the IDE will throw some AV. Need to check.}
-  DSpearContainer.RegisterType<IRegisterToolViewer>.DelegateTo(
-    function: IRegisterToolViewer
-    begin
-      Result := TfrmRegisterTool.Create(nil);
-    end);
+//  DSpearContainer.RegisterType<IRegisterToolViewer>.DelegateTo(
+//    function: IRegisterToolViewer
+//    begin
+//      Result := TfrmRegisterTool.Create(nil);
+//    end);
 
   DSpearContainer.Build;
 end;
