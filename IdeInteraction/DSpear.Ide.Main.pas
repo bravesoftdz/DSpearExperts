@@ -99,9 +99,9 @@ begin
     ToolItem.Insert(IndexFirstBreak, DSpearItemMenu);
   end;
 
-  CurrentSettings := ToolItem.Find('Settings');
+  CurrentSettings := DSpearItemMenu.Find('Settings');
   if Assigned(CurrentSettings) then
-    ToolItem.Delete(CurrentSettings.IndexOf(CurrentSettings));
+    DSpearItemMenu.Delete(DSpearItemMenu.IndexOf(CurrentSettings));
 
   NewItem := TMenuItem.Create(nil);
   NewItem.Caption := 'Settings';

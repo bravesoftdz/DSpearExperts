@@ -74,7 +74,7 @@ var
       begin
         with TFormFindUnit.Create(TFindUnitViewModel.Create(TFindUnitModel.Create), nil) do
         begin
-          Show;
+          ShowModal;
           Free;
         end;
       end;
