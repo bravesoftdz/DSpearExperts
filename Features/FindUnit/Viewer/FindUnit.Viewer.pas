@@ -3,8 +3,6 @@ unit FindUnit.Viewer;
 interface
 
 uses
-  DSpear.ToolApi.Interf,
-
   FindUnit.ViewModel.Interf,
 
   System.Classes,

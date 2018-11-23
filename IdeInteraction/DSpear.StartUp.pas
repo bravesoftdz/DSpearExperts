@@ -68,7 +68,7 @@ var
     Item.ShortCut.Ctrl := True;
     Item.ShortCut.Shift := True;
     Item.ShortCut.Alt := False;
-    Item.ShortCut.CharKey := 'K';
+    Item.ShortCut.CharKey := 'B';
 
     Item.Action := procedure
       begin
@@ -78,6 +78,7 @@ var
           Free;
         end;
       end;
+
     IdeMain.RegisterToolInformation(Item);
     IdeShortCuts.RegisterShortcut(Item);
   end;
@@ -124,7 +125,7 @@ begin
 
   DSpearContainer.RegisterType<TDSpearImageGalery>.Implements<IImageGalery>;
   DSpearContainer.RegisterType<TSettings>.Implements<ISettings>;
-  DSpearContainer.RegisterType<TIdeShortcuts>.Implements<IIdeShortCuts>;
+  DSpearContainer.RegisterType<TIdeShortcuts>.Implements<IIdeShortCuts>.AsSingleton;
   DSpearContainer.RegisterType<TDSpearIdeMain>.Implements<IIdeMain>;
   DSpearContainer.RegisterType<IRegisterToolItemViewer>.DelegateTo(
     function: IRegisterToolItemViewer

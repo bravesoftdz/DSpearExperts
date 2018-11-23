@@ -36,6 +36,7 @@ type
     procedure BindKeyboard(const BindingServices: IOTAKeyBindingServices);
 
     constructor Create(ToolInformation: TToolInformation; Method: TActionShortcut; Logger: ILogger);
+    destructor Destroy; override;
 
     property ShortcutIndex: Integer read FShortcutIndex write FShortcutIndex;
   end;
@@ -57,10 +58,10 @@ implementation
 
 { TToolShortcut }
 
-procedure TToolShortcut.BindKeyboard(
-  const BindingServices: IOTAKeyBindingServices);
+procedure TToolShortcut.BindKeyboard(const BindingServices: IOTAKeyBindingServices);
 var
   ShiftState: TShiftState;
+  KeyValue: Word;
 begin
   ShiftState := [];
 
@@ -73,16 +74,30 @@ begin
   if FToolInformation.ShortCut.Alt then
     Include(ShiftState, ssAlt);
 
-  BindingServices.AddKeyBinding([ShortCut(Ord(FToolInformation.ShortCut.CharKey), ShiftState)], InternalMethod, nil);
+  KeyValue := Ord(UpperCase(FToolInformation.ShortCut.CharKey)[1]);
+  if BindingServices.AddKeyBinding([ShortCut(KeyValue, ShiftState)], InternalMethod, nil) then
+    FLogger.Debug('[TIdeShortcuts.BindKeyboard] Add keybind for %s. Ctrl = %s; Shift = %s; Alt = %s; Key = %s.',
+    [FToolInformation.Title,
+      BoolToStr(FToolInformation.ShortCut.Ctrl),
+      BoolToStr(FToolInformation.ShortCut.Shift),
+      BoolToStr(FToolInformation.ShortCut.Alt),
+      FToolInformation.ShortCut.CharKey])
+  else
+    FLogger.Debug('[TIdeShortcuts.BindKeyboard] Not add keybind for %s.', [FToolInformation.Title]);
 end;
 
 constructor TToolShortcut.Create(ToolInformation: TToolInformation; Method: TActionShortcut; Logger: ILogger);
 begin
   FLogger := Logger;
-  FLogger.Debug('rodrigo create');
-  ShowMessage('aqui chegou');
   FMethod := Method;
   FToolInformation := ToolInformation;
+  FLogger.Debug('[TToolShortcut.Create] Create %s.', [ToolInformation.Title]);
+end;
+
+destructor TToolShortcut.Destroy;
+begin
+  FLogger.Debug('[TToolShortcut.Destroy] Destroy %s.', [FToolInformation.Title]);
+  inherited;
 end;
 
 function TToolShortcut.GetBindingType: TBindingType;
@@ -92,18 +107,19 @@ end;
 
 function TToolShortcut.GetDisplayName: string;
 begin
-  Result := FToolInformation.Title;
+  Result := 'rodrigo';//FToolInformation.Title;
 end;
 
 function TToolShortcut.GetName: string;
 begin
-  Result := FToolInformation.Title;
+  Result := 'rodrigo';//FToolInformation.Title;
 end;
 
 procedure TToolShortcut.InternalMethod(const Context: IOTAKeyContext;
   KeyCode: TShortCut; var BindingResult: TKeyBindingResult);
 begin
   BindingResult := krHandled;
+  FLogger.Debug('[TToolShortcut.InternalMethod] Call method for %s', [FToolInformation.Title]);
   FMethod;
 end;
 
@@ -137,14 +153,17 @@ begin
   FShotcutList.AddOrSetValue(ToolInformation.Title, ToolShortcut);
 
   if not ToolInformation.Enabled then
+  begin
+    FLogger.Debug('[TIdeShortcuts.RegisterShortcut] %s not registered because it is disabled.', [ToolInformation.Title]);
     Exit;
+  end;
 
   ToolShortcutBinding := ToolShortcut as IOTAKeyboardBinding;
   with (BorlandIDEServices as IOTAKeyboardServices) do
   begin
     ShortcutIndex := AddKeyboardBinding(ToolShortcutBinding);
-    ShowMessage(IntToStr(ShortcutIndex));
     ToolShortcut.ShortcutIndex := ShortcutIndex;
+    FLogger.Debug('[TIdeShortcuts.RegisterShortcut] %s registered with shortcut index %d.', [ToolInformation.Title, ShortcutIndex]);
   end;
 end;
 
