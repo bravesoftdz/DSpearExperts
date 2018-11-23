@@ -2,7 +2,7 @@ object fraRegisterToolItem: TfraRegisterToolItem
   Left = 0
   Top = 0
   Width = 451
-  Height = 305
+  Height = 53
   Align = alClient
   TabOrder = 0
   object gbGeneral: TGroupBox

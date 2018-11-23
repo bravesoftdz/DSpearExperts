@@ -48,7 +48,12 @@ contains
   RegisterToolItem.Viewer.Interf in 'RegisterTool\Viewer\RegisterToolItem.Viewer.Interf.pas',
   RegisterToolItem.Viewer in 'RegisterTool\Viewer\RegisterToolItem.Viewer.pas' {fraRegisterToolItem: TFrame},
   Feature.Domain in 'Domain\Feature.Domain.pas',
-  DSpear.Settings in 'DSpear.Settings.pas';
+  DSpear.Settings in 'DSpear.Settings.pas',
+  FindUnit.Model.Interf in '..\Features\FindUnit\Model\FindUnit.Model.Interf.pas',
+  FindUnit.Model in '..\Features\FindUnit\Model\FindUnit.Model.pas',
+  FindUnit.ViewModel.Interf in '..\Features\FindUnit\ViewModel\FindUnit.ViewModel.Interf.pas',
+  FindUnit.ViewModel in '..\Features\FindUnit\ViewModel\FindUnit.ViewModel.pas',
+  FindUnit.Viewer in '..\Features\FindUnit\Viewer\FindUnit.Viewer.pas' {FormFindUnit};
 
 end.
 

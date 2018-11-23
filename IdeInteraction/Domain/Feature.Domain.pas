@@ -3,6 +3,8 @@ unit Feature.Domain;
 interface
 
 type
+  TActionShortcut = reference to procedure;
+
   TShortcutInformation = record
     Ctrl: Boolean;
     Shift: Boolean;
@@ -15,6 +17,7 @@ type
     Description: string;
     Enabled: Boolean;
     ShortCut: TShortcutInformation;
+    Action: TActionShortcut;
   end;
 
 implementation
